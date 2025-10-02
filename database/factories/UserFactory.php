@@ -21,14 +21,20 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    
     public function definition(): array
     {
+        $avatarFiles = glob(storage_path('app/public/avatars/*.{jpg,jpeg,png}'), GLOB_BRACE);
+        $randomAvatar = $avatarFiles ? basename(fake()->randomElement($avatarFiles)) : null;
+
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'role' => 'pharmacist',
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'avatar' => $randomAvatar ? "avatars/{$randomAvatar}" : null,
         ];
     }
 
