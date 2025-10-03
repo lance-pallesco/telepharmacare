@@ -28,12 +28,17 @@ class UserFactory extends Factory
         $randomAvatar = $avatarFiles ? basename(fake()->randomElement($avatarFiles)) : null;
 
         return [
-            'name' => fake()->name(),
+            'first_name' => fake()->firstName(),
+            'middle_name' => fake()->lastName(),
+            'last_name' => fake()->lastName(),
+            'gender' => fake()->randomElement(['male', 'female']),
+            'phone' => fake()->phoneNumber(),
+            'address' => fake()->address(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'role' => 'pharmacist',
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'role' => 'pharmacist',
             'avatar' => $randomAvatar ? "avatars/{$randomAvatar}" : null,
         ];
     }

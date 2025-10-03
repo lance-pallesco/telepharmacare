@@ -23,8 +23,6 @@ class PharmacistDetailFactory extends Factory
             'license_number' => fake()->unique()->bothify('LIC-#####'),
             'license_expiry' => fake()->dateTimeBetween('now', '+5 years')->format('Y-m-d'),
             'specialization' => fake()->randomElement(['Cardiologist', 'Dermatologist', 'Endocrinologist', 'Gastroenterologist', 'Neurologist', 'Pediatrician', 'Psychiatrist', 'Radiologist', 'Surgeon', 'Urologist', 'Obstetrician/Gynecologist (OB/GYN)']),
-            'phone' => fake()->phoneNumber(),
-            'address' => fake()->address(),
             'is_active' => fake()->boolean(80), // 80% chance of being true
         ];
     }

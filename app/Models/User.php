@@ -78,4 +78,8 @@ class User extends Authenticatable implements FilamentUser, HasEmailAuthenticati
     {
         return $this->hasOne(PharmacistDetail::class, 'user_id');
     }
+
+    public function getNameAttribute(): string {
+        return trim("{$this->first_name} {$this->last_name}");
+    }
 }
