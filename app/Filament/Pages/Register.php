@@ -2,12 +2,14 @@
 
 namespace App\Filament\Pages;
 
+use App\Models\User;
 use Filament\Auth\Pages\Register as PagesRegister;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\Page;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Hash;
 
 class Register extends PagesRegister
 {
@@ -61,5 +63,10 @@ class Register extends PagesRegister
                 ->required()
                 ->same('password'),
         ]);
+    }
+    
+    protected function handleRegistration(array $data): User {
+        $data['role'] = 'patient';
+        return User::create($data);
     }
 }

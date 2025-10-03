@@ -9,6 +9,12 @@ class CreateUser extends CreateRecord
 {
     protected static string $resource = UserResource::class;
 
+    // protected function beforeCreate(): void
+    // {
+    //     // This will dump the data right before creating the user
+    //     dd($this->data);
+    // }
+
     protected function afterCreate(): void {
         $this->record->pharmacistDetail()->create([
             'license_number' => $this->data['license_number'],

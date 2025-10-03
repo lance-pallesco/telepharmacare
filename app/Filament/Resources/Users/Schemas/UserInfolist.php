@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Users\Schemas;
 use Filament\Schemas\Components\Section;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\ImageEntry;
+use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Schema;
 
 class UserInfolist
@@ -14,28 +15,22 @@ class UserInfolist
         return $schema
             ->components([
                 Section::make('Basic Information')
-                    ->columns(2)
                     ->schema([
                         ImageEntry::make('avatar')
-                            ->square()
-                            ->disk('public')
-                            ->label('Avatar'),
+                        ->disk('public')
+                        ->label('Profile Picture')
+                        ->columnSpanFull(),
+                    Grid::make(2)->schema([
                         TextEntry::make('name')
-                            ->label('Full Name'),
+                        ->label('Full Name'),
                         TextEntry::make('email')
-                            ->label('Email Address'),
-                        TextEntry::make('pharmacistDetail.is_active')
-                            ->label('Status')
-                            ->badge()
-                            ->color(fn (string $state): string => match($state) {
-                                '1' => 'success',
-                                '0' => 'danger',
-                            })
-                            ->formatStateUsing(fn (string $state): string => match ($state){
-                                '1' => 'Active',
-                                '0' => 'Deactivated',
-                            }),
+                        ->label('Email Address'),
+                        TextEntry::make('phone')
+                        ->label('Phone Number'),
+                        TextEntry::make('address')
+                        ->label('Address'),
                     ]),
+                ]),
 
                 Section::make('Pharmacist Details')
                     ->columns(2)
@@ -47,10 +42,17 @@ class UserInfolist
                             ->label('License Expiry'),
                         TextEntry::make('pharmacistDetail.specialization')
                             ->label('Specialization'),
-                        TextEntry::make('pharmacistDetail.phone')
-                            ->label('Phone Number'),
-                        TextEntry::make('pharmacistDetail.address')
-                            ->label('Address'),
+                        TextEntry::make('pharmacistDetail.is_active')
+                            ->label('Status')
+                            ->badge()
+                            ->color(fn (string $state): string => match($state) {
+                                '1' => 'success',
+                                '0' => 'danger',
+                            })
+                            ->formatStateUsing(fn (string $state): string => match ($state){
+                                '1' => 'Active',
+                                '0' => 'Deactivated',
+                            }),
                     ]),
             ]);
     }

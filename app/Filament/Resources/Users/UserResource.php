@@ -48,14 +48,6 @@ class UserResource extends Resource
             //
         ];
     }
-
-    public static function mutateFormDataBeforeCreate(array $data): array {
-        if (isset($data['password'])) {
-            $data['password'] = Hash::make($data['password']);
-        }
-        return $data;
-    }
-
     public static function getModelLabel(): string
     {
         return 'Pharmacist';
