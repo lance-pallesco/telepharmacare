@@ -15,8 +15,6 @@ class PharmacistDetail extends Model
         'license_number',
         'license_expiry',
         'specialization',
-        'address',
-        'phone',
         'is_active',
     ];
 

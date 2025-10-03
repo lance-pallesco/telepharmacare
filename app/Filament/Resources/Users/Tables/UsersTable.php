@@ -33,9 +33,6 @@ class UsersTable
                     ->label('Specialization')
                     ->searchable()
                     ->limit(20),
-                // TextColumn::make('pharmacistDetail.phone')
-                //     ->label('Phone Number')
-                //     ->searchable(),
                 TextColumn::make('pharmacistDetail.is_active')
                     ->label('Status')
                     ->badge()
@@ -47,21 +44,6 @@ class UsersTable
                         '1' => 'Active',
                         '0' => 'Deactivated',
                     }),
-                // TextColumn::make('email_verified_at')
-                //     ->dateTime()
-                //     ->sortable(),
-                // // IconColumn::make('has_email_authentication')
-                // //     ->boolean(),
-                // TextColumn::make('role')
-                //     ->searchable(),
-                // TextColumn::make('created_at')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
-                // TextColumn::make('updated_at')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
