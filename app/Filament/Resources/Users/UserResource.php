@@ -21,14 +21,14 @@ use Illuminate\Support\Facades\Hash;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
-    
+
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
-    {
+        {
         return UserForm::configure($schema);
     }
 
@@ -65,7 +65,7 @@ class UserResource extends Resource
 
     public static function getNavigationIcon(): string
     {
-        return 'heroicon-o-user-group';
+        return 'heroicon-s-user-group';
     }
 
     public static function getPages(): array
@@ -81,5 +81,10 @@ class UserResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()->where('role', 'pharmacist');
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->role === 'admin';
     }
 }
