@@ -3,6 +3,8 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\Profile;
+use App\Filament\Pages\Register;
+use Filament\Auth\Http\Responses\LoginResponse as LoginResponseContract;
 use Filament\Auth\MultiFactor\Email\EmailAuthentication;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -19,6 +21,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
@@ -27,14 +30,16 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->id('admin')
-            ->path('admin')
-            ->registration()
+            ->id('app')
+            ->path('app')
+            ->registration(Register::class)
             ->login()
             ->passwordReset()
+            ->authGuard('web')
+            ->sidebarCollapsibleOnDesktop()
             ->multiFactorAuthentication([
                 EmailAuthentication::make(),
-            ], isRequired: true)
+            ])
             ->profile(page: Profile::class, isSimple: false)
             ->colors([
                 'primary' => Color::Blue,

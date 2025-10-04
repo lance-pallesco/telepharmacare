@@ -24,10 +24,16 @@ class User extends Authenticatable implements FilamentUser, HasEmailAuthenticati
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'gender',
+        'phone',
+        'address',
         'email',
         'password',
         'has_email_authentication',
+        'role',
         'avatar',
     ];
 
@@ -77,5 +83,9 @@ class User extends Authenticatable implements FilamentUser, HasEmailAuthenticati
     public function pharmacistDetail()
     {
         return $this->hasOne(PharmacistDetail::class, 'user_id');
+    }
+
+    public function getNameAttribute(): string {
+        return trim("{$this->first_name} {$this->last_name}");
     }
 }

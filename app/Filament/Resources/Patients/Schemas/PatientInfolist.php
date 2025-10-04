@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Users\Schemas;
+namespace App\Filament\Resources\Patients\Schemas;
 
 use Filament\Schemas\Components\Section;
 use Filament\Infolists\Components\TextEntry;
@@ -8,7 +8,7 @@ use Filament\Infolists\Components\ImageEntry;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Schema;
 
-class UserInfolist
+class PatientInfolist
 {
     public static function configure(Schema $schema): Schema
     {

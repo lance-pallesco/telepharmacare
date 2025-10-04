@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Users\Tables;
+namespace App\Filament\Resources\Patients\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -9,8 +9,9 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 
-class UsersTable
+class PatientsTable
 {
     public static function configure(Table $table): Table
     {
@@ -22,27 +23,16 @@ class UsersTable
                     ->disk('public'),
                 TextColumn::make('name')
                     ->searchable(),
+                TextColumn::make('gender')
+                    ->label('Gender')
+                    ->searchable()
+                    ->formatStateUsing(fn (?string $state): ?string => $state ? Str::ucfirst($state) : null),
+                TextColumn::make('phone')
+                    ->label('Contact Number')
+                    ->searchable(),
                 TextColumn::make('email')
                     ->label('Email address')
                     ->searchable(),
-                TextColumn::make('pharmacistDetail.license_number')
-                    ->label('License Number')
-                    ->searchable(),
-                TextColumn::make('pharmacistDetail.specialization')
-                    ->label('Specialization')
-                    ->searchable()
-                    ->limit(20),
-                TextColumn::make('pharmacistDetail.is_active')
-                    ->label('Status')
-                    ->badge()
-                    ->color(fn (string $state): string => match($state) {
-                        '1' => 'success',
-                        '0' => 'danger',
-                    })
-                    ->formatStateUsing(fn (string $state): string => match ($state){
-                        '1' => 'Active',
-                        '0' => 'Deactivated',
-                    }),
             ])
             ->filters([
                 //
