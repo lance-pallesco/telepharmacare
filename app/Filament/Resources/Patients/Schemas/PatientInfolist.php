@@ -15,12 +15,12 @@ class PatientInfolist
         return $schema
             ->components([
                 Section::make('Basic Information')
+                ->description('Basic personal details of your account.')
                     ->schema([
                         ImageEntry::make('avatar')
                         ->disk('public')
                         ->label('Profile Picture')
                         ->columnSpanFull(),
-                    Grid::make(2)->schema([
                         TextEntry::make('name')
                         ->label('Full Name'),
                         TextEntry::make('email')
@@ -28,32 +28,8 @@ class PatientInfolist
                         TextEntry::make('phone')
                         ->label('Phone Number'),
                         TextEntry::make('address')
-                        ->label('Address'),
-                    ]),
-                ]),
-
-                Section::make('Pharmacist Details')
-                    ->columns(2)
-                    ->schema([
-                        TextEntry::make('pharmacistDetail.license_number')
-                            ->label('License Number'),
-                        TextEntry::make('pharmacistDetail.license_expiry')
-                            ->date()
-                            ->label('License Expiry'),
-                        TextEntry::make('pharmacistDetail.specialization')
-                            ->label('Specialization'),
-                        TextEntry::make('pharmacistDetail.is_active')
-                            ->label('Status')
-                            ->badge()
-                            ->color(fn (string $state): string => match($state) {
-                                '1' => 'success',
-                                '0' => 'danger',
-                            })
-                            ->formatStateUsing(fn (string $state): string => match ($state){
-                                '1' => 'Active',
-                                '0' => 'Deactivated',
-                            }),
-                    ]),
+                        ->label('Address'),  
+                ])->columnSpanFull(),
             ]);
     }
 }

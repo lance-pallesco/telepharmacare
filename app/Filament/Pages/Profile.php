@@ -3,14 +3,17 @@
 namespace App\Filament\Pages;
 
 use Filament\Auth\Pages\EditProfile;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 
 class Profile extends EditProfile
@@ -60,6 +63,34 @@ class Profile extends EditProfile
                             ->maxLength(500)
                             ->columnSpanFull(),
                     ]),
+            Section::make('Pharmacist Details')
+                ->description('Professional details of your account.')
+                ->relationship('pharmacistDetail')
+                ->visible(fn (): bool => Auth::user()->role === 'pharmacist')
+                ->schema([
+                        TextInput::make('license_number')
+                            ->label('License Number')
+                            ->required()
+                            ->maxLength(100),
+
+                        DatePicker::make('license_expiry')
+                            ->label('License Expiry Date')
+                            ->required(),
+
+                        TextInput::make('specialization')
+                            ->label('Specialization')
+                            ->placeholder('e.g. Oncology, Pediatrics, General')
+                            ->required(),
+
+                        Toggle::make('is_active')
+                        ->label('Status')
+                        ->helperText('Toggle to activate or deactivate your account.')
+                        ->onColor('success')  // Green when active
+                        ->offColor('danger')  // Red when inactive
+                        ->onIcon('heroicon-o-check')
+                        ->offIcon('heroicon-o-x-mark')
+                        ->default(true),
+                ]),
             Section::make('Account Credentials')
                 ->description('Manage your login information.')
                 ->schema([
