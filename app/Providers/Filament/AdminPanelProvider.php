@@ -4,13 +4,15 @@ namespace App\Providers\Filament;
 
 use App\Filament\Pages\Profile;
 use App\Filament\Pages\Register;
-use Filament\Auth\Http\Responses\LoginResponse as LoginResponseContract;
+use App\Filament\Auth\Login;
 use Filament\Auth\MultiFactor\Email\EmailAuthentication;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages\Dashboard;
+use Filament\Pages\PatientDashboard;
+use Filament\Pages\PharmacistDashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -33,7 +35,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('app')
             ->path('app')
             ->registration(Register::class)
-            ->login()
+            ->login(Login::class)
             ->passwordReset()
             ->authGuard('web')
             ->sidebarCollapsibleOnDesktop()
@@ -48,6 +50,8 @@ class AdminPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
                 Dashboard::class,
+                PatientDashboard::class,
+                PharmacistDashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
